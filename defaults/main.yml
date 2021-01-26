@@ -1,0 +1,3 @@
+---
+fail2ban_jail_shaarli: false
+fail2ban_jail_webdav: false
