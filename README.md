@@ -13,3 +13,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `fail2ban_jail_wordpress` | false | Deploy wordpress jails. |
 | `fail2ban_jail_shaarli` | false | Deploy Shaarli jail. |
 | `fail2ban_jail_webdav` | false | Deploy webdav jail.  |
+
+## TODO
+
+https://github.com/fail2ban/fail2ban/wiki/How-to-install-or-upgrade-fail2ban-manually
