@@ -1,7 +1,7 @@
 ---
 - name: FAIL2BAN | Install fail2ban
   apt:
-    name: ['fail2ban']
+    name: ['fail2ban', 'python-pyinotify']
     state: present
     update_cache: yes
     cache_valid_time: 3600
