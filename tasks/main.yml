@@ -1,3 +1,7 @@
 ---
-- name: INCLUDE | Install and configure fail2ban
+- name: INCLUDE | Install fail2ban
   import_tasks: fail2ban.yml
+
+
+- name: INCLUDE | Configure fail2ban
+  import_tasks: jails.yml

@@ -1,3 +1,4 @@
 ---
-fail2ban_jail_shaarli: false
 fail2ban_jail_webdav: false
+fail2ban_jail_ssh: false
+fail2ban_deb_url: https://github.com/fail2ban/fail2ban/releases/download/0.10.6/fail2ban_0.10.6-1.upstream1_all.deb

@@ -1,31 +1,26 @@
 ---
 - name: FAIL2BAN | Install fail2ban
   apt:
-    name: ['fail2ban', 'python-pyinotify']
+    name: ['fail2ban', 'python-pyinotify', 'gamin', 'python3-systemd']
     state: present
     update_cache: yes
     cache_valid_time: 3600
 
-# ssh
-- name: FAIL2BAN | Activate ssh jails
-  copy:
-    src: etc/fail2ban/jail.d/ssh.conf
-    dest: /etc/fail2ban/jail.d/ssh.conf
+- name: Get deb
+  get_url:
+    # url: https://github.com/fail2ban/fail2ban/releases/download/0.10.6/fail2ban_0.10.6-1.upstream1_all.deb
+    url: "{{ fail2ban_deb_url }}"
+    force: yes
+    dest: /tmp/fail2ban.deb
 
-# webdav-401
-# TODO -> Move to WebDAV
-- name: FAIL2BAN | Deploy jail webdav-401
-  when: fail2ban_jail_webdav
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: 'etc/fail2ban/filter.d/webdav-401.conf', dest: '/etc/fail2ban/filter.d/webdav-401.conf' }
-    - { src: 'etc/fail2ban/jail.d/webdav-401.conf', dest: '/etc/fail2ban/jail.d/webdav-401.conf' }
+- name: Get asc
+  get_url:
+    url: "{{ fail2ban_deb_url }}.asc"
+    force: yes
+    dest: /tmp/fail2ban.deb.asc
 
-# Default jails parameters
-- name: FAIL2BAN | Deploy configuration
-  template:
-    src: etc/fail2ban/jail.j2
-    dest: /etc/fail2ban/jail.local
-  notify: restart fail2ban
+# Get fail2ban key: gpg --keyserver keys.gnupg.net --recv-keys BD0A882C
+# Check signature: gpg --verify fail2ban_0.10.6-1~upstream1_all.deb.asc fail2ban_0.10.6-1~upstream1_all.deb
+-
+- name: Install fail2ban
+  apt: deb="/tmp/fail2ban.deb"

@@ -9,11 +9,30 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `fail2ban_jail_apache` | false | Deploy apache jails. |
-| `fail2ban_jail_wordpress` | false | Deploy wordpress jails. |
-| `fail2ban_jail_shaarli` | false | Deploy Shaarli jail. |
 | `fail2ban_jail_webdav` | false | Deploy webdav jail.  |
+| `fail2ban_jail_ssh` | false | Deploy ssh jail.  |
 
-## TODO
+# Testing
 
-https://github.com/fail2ban/fail2ban/wiki/How-to-install-or-upgrade-fail2ban-manually
+$ molecule test
+
+# Debugging
+
+Prepare instance.
+$ molecule create
+
+Test role against instance.
+$ molecule converge
+
+Inspect instance state.
+$ molecule login
+
+Verify.
+$ molecule verify
+
+Exit then clean.
+$ molecule destroy
+
+# Source
+
+[How to install or upgrade fail2ban manually](https://github.com/fail2ban/fail2ban/wiki/How-to-install-or-upgrade-fail2ban-manually)
