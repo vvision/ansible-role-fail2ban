@@ -13,25 +13,36 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `fail2ban_jail_ssh` | false | Deploy ssh jail.  |
 
 # Testing
-
+```
 $ molecule test
+```
 
 # Debugging
 
 Prepare instance.
+```
 $ molecule create
+```
 
 Test role against instance.
+```
 $ molecule converge
+```
 
 Inspect instance state.
+```
 $ molecule login
+```
 
 Verify.
+```
 $ molecule verify
+```
 
 Exit then clean.
+```
 $ molecule destroy
+```
 
 # Source
 
