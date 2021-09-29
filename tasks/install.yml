@@ -1,0 +1,60 @@
+---
+# https://github.com/fail2ban/fail2ban/wiki/How-to-install-or-upgrade-fail2ban-manually
+- name: FAIL2BAN | Install fail2ban
+  apt:
+    name: [
+        'fail2ban',
+        'python-pyinotify',
+        'gamin',
+        'python3-systemd',
+        'gpg'
+    ]
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: check if deb file exists
+  stat:
+    path: "/tmp/fail2ban.deb"
+  register: fail2ban_deb_file
+
+- name: Get deb
+  get_url:
+    url: "{{ fail2ban_deb_url }}"
+    force: yes
+    dest: /tmp/fail2ban.deb
+  when: not fail2ban_deb_file.stat.exists
+
+- name: check if deb asc file exists
+  stat:
+    path: "/tmp/fail2ban.deb.asc"
+  register: fail2ban_deb_asc_file
+
+- name: Get asc
+  get_url:
+    url: "{{ fail2ban_deb_url }}.asc"
+    force: yes
+    dest: /tmp/fail2ban.deb.asc
+  when: not fail2ban_deb_asc_file.stat.exists
+
+# https://github.com/fail2ban/fail2ban/issues/2806
+# https://github.com/fail2ban/fail2ban/issues/3026
+# From the GnuPG man page:
+#    The program returns 0 if everything was fine,
+#    1 if at least a signature was bad, and other error codes for fatal errors.
+- name: Check signature
+  command:
+    argv:
+      - gpg
+      - "--auto-key-retrieve"
+      - "--keyserver"
+      - "{{ fail2ban_keyserver_url }}"
+      - "--verify"
+      - fail2ban.deb.asc
+      - fail2ban.deb
+  args:
+    chdir: /tmp/
+
+
+- name: Install fail2ban
+  apt: deb="/tmp/fail2ban.deb"

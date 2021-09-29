@@ -1,16 +1,15 @@
 ---
-#dependencies:
-#  -
+dependencies: []
 
 galaxy_info:
+  role_name: fail2ban
   author: vvision
-  description: Install and configure fail2ban.
-  # company: ""
-  # license: ""
-  min_ansible_version: 2.4
+  description: fail2ban
+  license: "MIT"
+  min_ansible_version: 2.6
   platforms:
     - name: Debian
       versions:
         - all
   galaxy_tags:
-    - system
+    - fail2ban

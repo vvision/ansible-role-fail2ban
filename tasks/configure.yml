@@ -1,0 +1,7 @@
+---
+# Default jails parameters
+- name: FAIL2BAN | Deploy configuration
+  template:
+    src: etc/fail2ban/jail.local.j2
+    dest: /etc/fail2ban/jail.local
+  notify: restart fail2ban

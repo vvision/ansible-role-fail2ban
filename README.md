@@ -1,49 +1,54 @@
 # ansible-role-fail2ban
-Ansible role to install fail2ban.
 
-## Description
+[![CI](https://github.com/vvision/ansible-role-fail2ban/workflows/CI/badge.svg?event=push)](https://github.com/vvision/ansible-role-fail2ban/actions?query=workflow%3ACI)
+
+Installs fail2ban on Debian servers.
+
+## Requirements
 
 ## Role Variables
 
-All variables which can be overridden are stored in [defaults/main.yml](defaults/main.yml) file as well as in table below.
+    fail2ban_deb_url: https://github.com/fail2ban/fail2ban/releases/download/0.11.2/fail2ban_0.11.2-1.upstream1_all.deb
+    
+Fail2ban debian package url. Role will expect an acs file at ``fail2ban_deb_url`` + ``.asc``.
 
-| Name           | Default Value | Description                        |
-| -------------- | ------------- | -----------------------------------|
-| `fail2ban_jail_webdav` | false | Deploy webdav jail.  |
-| `fail2ban_jail_ssh` | false | Deploy ssh jail.  |
+    fail2ban_keyserver_url: hkps://keyserver.ubuntu.com
 
-# Testing
-```
-$ molecule test
-```
+Key server to use when checking package signature.
 
-# Debugging
+### Default Jail configuration
 
-Prepare instance.
-```
-$ molecule create
-```
+    fail2ban_ignoreip: "127.0.0.1/8"
 
-Test role against instance.
-```
-$ molecule converge
-```
+Space separated list of IPs to ignore.
+"ignoreip" can be an IP address, a CIDR mask or a DNS host.
 
-Inspect instance state.
-```
-$ molecule login
-```
+    fail2ban_bantime: 3600
 
-Verify.
-```
-$ molecule verify
-```
+Default ban time for all jails.
 
-Exit then clean.
-```
-$ molecule destroy
-```
+    fail2ban_maxretry: 3
 
-# Source
+Default max retry for all jails.
 
-[How to install or upgrade fail2ban manually](https://github.com/fail2ban/fail2ban/wiki/How-to-install-or-upgrade-fail2ban-manually)
+### Jails configuration
+
+    fail2ban_activate_ssh_jail: false
+
+Whether to activate ssh jail.
+
+    fail2ban_ssh_jail_bantime: 86400
+
+Ban time for ssh jail.
+
+## Dependencies
+
+None.
+
+## License
+
+MIT
+
+## Author Information
+
+This role was created in 2021 by Victor Voisin.

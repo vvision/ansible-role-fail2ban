@@ -11,3 +11,25 @@
         that: "'{{ item }}' in ansible_facts.packages"
       with_items:
         - fail2ban
+
+    # jail.local check
+    - name: Check if jail.local is present
+      stat:
+        path: "/etc/fail2ban/jail.local"
+      register: jail_local_file
+
+    - name: Check installation
+      assert:
+        that:
+          - "jail_local_file.stat.exists"
+
+    # ssh jail test
+    - name: Check if jail.d/ssh.conf is present
+      stat:
+        path: "/etc/fail2ban/jail.d/ssh.conf"
+      register: jail_ssh_file
+
+    - name: Check installation
+      assert:
+        that:
+          - "jail_ssh_file.stat.exists"
