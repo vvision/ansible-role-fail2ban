@@ -54,6 +54,9 @@
       - fail2ban.deb
   args:
     chdir: /tmp/
+  environment:
+    LANGUAGE: "en"
+  changed_when: false
 
 
 - name: Install fail2ban
