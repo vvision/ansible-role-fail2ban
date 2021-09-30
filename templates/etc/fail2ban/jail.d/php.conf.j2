@@ -1,0 +1,5 @@
+{% for item in fail2ban_php_jails %}
+[php-{{ item }}]
+enabled = true
+
+{% endfor %}

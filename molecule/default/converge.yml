@@ -7,3 +7,4 @@
     - role: vvision.fail2ban
       vars:
         fail2ban_activate_ssh_jail: true
+        fail2ban_php_jails:

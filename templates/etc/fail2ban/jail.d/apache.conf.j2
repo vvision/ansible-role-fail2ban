@@ -1,0 +1,5 @@
+{% for item in fail2ban_apache_jails %}
+[apache-{{ item }}]
+enabled = true
+
+{% endfor %}

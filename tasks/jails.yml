@@ -1,8 +1,26 @@
 ---
 # ssh
 - name: FAIL2BAN | Activate ssh jails
-  when: fail2ban_activate_ssh_jail
+  when: fail2ban_activate_ssh_jail | bool
   template:
     src: etc/fail2ban/jail.d/ssh.conf.j2
     dest: /etc/fail2ban/jail.d/ssh.conf
+  notify: restart fail2ban
+
+# apache
+- name: FAIL2BAN | Activate apache jails
+  when: fail2ban_apache_jails
+  template:
+    src: etc/fail2ban/jail.d/apache.conf.j2
+    dest: /etc/fail2ban/jail.d/apache.conf
+  with_items: "{{ fail2ban_apache_jails }}"
+  notify: restart fail2ban
+
+# PHP
+- name: FAIL2BAN | Activate PHP jails
+  when: fail2ban_php_jails
+  template:
+    src: etc/fail2ban/jail.d/php.conf.j2
+    dest: /etc/fail2ban/jail.d/php.conf
+  with_items: "{{ fail2ban_php_jails }}"
   notify: restart fail2ban

@@ -6,6 +6,23 @@ fail2ban_keyserver_url: hkps://keyserver.ubuntu.com
 fail2ban_ignoreip: "127.0.0.1/8"
 fail2ban_bantime: 3600
 fail2ban_maxretry: 3
-# Jails configuration
+# Jails configurations
+## SSH Jail
 fail2ban_activate_ssh_jail: false
 fail2ban_ssh_jail_bantime: 86400
+## Apache Jails
+fail2ban_apache_jails: [
+    'auth',
+    'badbots',
+    'noscript',
+    'overflows',
+    'nohome',
+    'botsearch',
+    'fakegooglebot',
+    'modsecurity',
+    'shellshock',
+]
+## PHP Jails
+fail2ban_php_jails: [
+    'url-fopen',
+]

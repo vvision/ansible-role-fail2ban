@@ -29,7 +29,29 @@
         path: "/etc/fail2ban/jail.d/ssh.conf"
       register: jail_ssh_file
 
-    - name: Check installation
+    - name: Check ssh jails installation
       assert:
         that:
           - "jail_ssh_file.stat.exists"
+
+    # apache jail test
+    - name: Check if jail.d/apache.conf is present
+      stat:
+        path: "/etc/fail2ban/jail.d/apache.conf"
+      register: jail_apache_file
+
+    - name: Check apache jails installation
+      assert:
+        that:
+          - "jail_apache_file.stat.exists"
+
+    # php jail test
+    - name: Check if jail.d/php.conf is not present
+      stat:
+        path: "/etc/fail2ban/jail.d/php.conf"
+      register: jail_php_file
+
+    - name: Check php jails installation
+      assert:
+        that:
+          - "not jail_php_file.stat.exists"

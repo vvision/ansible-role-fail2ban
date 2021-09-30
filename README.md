@@ -33,6 +33,8 @@ Default max retry for all jails.
 
 ### Jails configuration
 
+#### SSH Jail
+
     fail2ban_activate_ssh_jail: false
 
 Whether to activate ssh jail.
@@ -40,6 +42,28 @@ Whether to activate ssh jail.
     fail2ban_ssh_jail_bantime: 86400
 
 Ban time for ssh jail.
+
+#### Apache Jails
+
+    fail2ban_apache_jails: [
+        'auth',
+        'badbots',
+        'noscript',
+        'overflows',
+        'nohome',
+        'botsearch',
+        'fakegooglebot',
+        'modsecurity',
+        'shellshock',
+    ]
+List of Apache jails to activate.
+
+#### PHP Jails
+
+    fail2ban_php_jails: [
+        'url-fopen',
+    ]
+List of PHP jails to activate.
 
 ## Dependencies
 
